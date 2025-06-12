@@ -5,11 +5,16 @@
     <% if (recipes.length === 0) { %>
         <p>등록된 레시피가 없습니다.</p>
     <% } else { %>
-        <ul>
+        <div class="grid">
             <% recipes.forEach(r => { %>
-                <li><%= r.title %></li>
+                <div class="card">
+                    <a href="/recipes/<%= r.id %>">
+                        <img src="<%= r.image_url %>" alt="<%= r.title %>">
+                        <h3><%= r.title %></h3>
+                    </a>
+                </div>
             <% }) %>
-        </ul>
+        </div>
     <% } %>
 </main>
 
