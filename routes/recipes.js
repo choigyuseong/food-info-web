@@ -1,7 +1,13 @@
-// routes/recipes.js
 const express = require('express');
 const router  = express.Router();
-const ctrl    = require('../controllers/recipeController');
+const ctrl = require('../controllers/recipeController');
 
 router.get('/', ctrl.mainPage);
+
+// GET 등록 폼
+router.get('/recipes/create', ctrl.showCreateForm);
+
+// POST 등록 처리
+router.post('/recipes/create', ctrl.createRecipe);
+
 module.exports = router;

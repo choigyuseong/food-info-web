@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<main>
+    <h2>레시피 등록</h2>
+    <form action="/recipes/create" method="POST">
+        <label for="title">레시피 이름</label>
+        <input type="text" id="title" name="title" required />
+
+        <label for="image_url">이미지 URL</label>
+        <input type="text" id="image_url" name="image_url" />
+
+        <button type="submit" class="button">등록하기</button>
+    </form>
+</main>
+
+<%- include('partials/footer') %>
