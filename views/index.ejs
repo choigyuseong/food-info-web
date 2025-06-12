@@ -1,15 +1,18 @@
 <%- include('partials/header') %>
-
 <main>
     <h2>추천 레시피</h2>
-    <% if (recipes.length === 0) { %>
+    <% if (!recipes.length) { %>
         <p>등록된 레시피가 없습니다.</p>
     <% } else { %>
         <div class="grid">
             <% recipes.forEach(r => { %>
                 <div class="card">
                     <a href="/recipes/<%= r.id %>">
-                        <img src="<%= r.image_url %>" alt="<%= r.title %>">
+                        <img
+                                src="<%= r.image_url %>"
+                                alt="<%= r.title %>"
+                                onerror="this.src='/images/placeholder.png'"
+                        />
                         <h3><%= r.title %></h3>
                     </a>
                 </div>
@@ -17,5 +20,4 @@
         </div>
     <% } %>
 </main>
-
 <%- include('partials/footer') %>
