@@ -1,0 +1,112 @@
+/* 기본 설정 및 CSS 변수 */
+:root {
+    --gap: 1rem;
+    --font-base: 16px;
+    --font-lg: 20px;
+    --font-xl: 24px;
+    --color-bg: #f5f5f5;
+    --color-card-bg: #ffffff;
+    --color-primary: #3c8dbc;
+    --color-text: #333333;
+    --radius: 8px;
+    --transition: 0.2s ease-in-out;
+}
+
+/* 리셋 & 전역 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: var(--font-base);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+}
+
+/* 링크 기본 스타일 */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+a:hover {
+    color: darken(var(--color-primary), 10%);
+}
+
+/* 헤더 & 푸터 */
+header {
+    background: var(--color-card-bg);
+    padding: var(--gap);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+header h1 {
+    font-size: var(--font-xl);
+}
+header a {
+    display: inline-block;
+}
+
+footer {
+    text-align: center;
+    padding: var(--gap);
+    font-size: 0.875rem;
+    color: #777777;
+    margin-top: var(--gap);
+}
+
+/* 메인 콘텐츠 영역 */
+main {
+    max-width: 1200px;
+    margin: var(--gap) auto;
+    padding: 0 var(--gap);
+}
+
+/* 그리드 & 카드 컴포넌트 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--gap);
+}
+
+.card {
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card h3 {
+    font-size: var(--font-lg);
+    padding: var(--gap);
+}
+
+/* 버튼 스타일 */
+.button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: var(--font-base);
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background var(--transition);
+}
+.button:hover {
+    background: darken(var(--color-primary), 10%);
+}
