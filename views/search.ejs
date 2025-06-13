@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<main>
+    <h2>“<%= query %>” 검색 결과</h2>
+    <% if (!recipes.length) { %>
+        <p>‘<%= query %>’에 해당하는 레시피가 없습니다.</p>
+    <% } else { %>
+        <div class="grid">
+            <% recipes.forEach(r => { %>
+                <div class="card">
+                    <a href="/recipes/<%= r.id %>">
+                        <img
+                                src="<%= r.image_url %>"
+                                alt="<%= r.title %>"
+                                onerror="this.src='/images/placeholder.png'"
+                        />
+                        <h3><%= r.title %></h3>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</main>
+
+<%- include('partials/footer') %>
