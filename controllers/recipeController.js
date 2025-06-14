@@ -1,47 +1,41 @@
-const axios = require('axios');
 const pool  = require('../models/db');
-require('dotenv').config();
+const {
+    fetchDbRecipes,
+    fetchApiRecipes,
+    fetchDbRecipeDetail,
+    fetchApiRecipeDetail
+} = require('../services/recipeService');
 
+// 메인 페이지
 exports.mainPage = async (req, res, next) => {
     try {
-        // 1) 로컬 DB에서 레시피 조회
-        const [dbRows] = await pool.query(
-            'SELECT id, title, image_url FROM recipe ORDER BY created_at DESC'
-        );
-
-        let recipes = dbRows.map(r => ({
-            id:        r.id,
-            title:     r.title,
-            image_url: r.image_url || ''
-        }));
-
-        // 2) 외부 API에서 추가 데이터 가져오기 (옵션)
-        //    예: DB에 데이터가 없을 때만 가져오려면 if(dbRows.length===0)으로 분기
-        const key = process.env.FOOD_API_KEY;
-        const url = `https://openapi.foodsafetykorea.go.kr/api/${key}/COOKRCP01/json/1/8`;
-        const { data } = await axios.get(url);
-        const apiRows = data.COOKRCP01.row.map(r => ({
-            id:        r.RCP_SEQ,
-            title:     r.RCP_NM,
-            image_url: r.ATT_FILE_NO_MAIN || ''
-        }));
-
-        // 3) DB + API 데이터를 합쳐서, DB 쪽이 앞에 오도록
-        recipes = recipes.concat(apiRows);
-
-        // 4) 렌더링
-        res.render('index', { recipes });
+        const dbRecipes  = await fetchDbRecipes();
+        const apiRecipes = await fetchApiRecipes();
+        res.render('index', { recipes: dbRecipes.concat(apiRecipes) });
     } catch (err) {
         next(err);
     }
 };
 
-// 등록 폼 렌더
-exports.showCreateForm = (req, res) => {
-    res.render('create');
+// 상세 페이지
+exports.detailPage = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        let recipe = await fetchDbRecipeDetail(id);
+        if (!recipe) {
+            recipe = await fetchApiRecipeDetail(id);
+            if (!recipe) return res.status(404).send('레시피를 찾을 수 없습니다.');
+        }
+        res.render('detail', { recipe });
+    } catch (err) {
+        next(err);
+    }
 };
 
-// 폼 데이터 받아서 DB에 저장
+// 등록 폼
+exports.showCreateForm = (req, res) => res.render('create');
+
+// 등록 처리
 exports.createRecipe = async (req, res, next) => {
     try {
         const { title, image_url } = req.body;
@@ -49,7 +43,6 @@ exports.createRecipe = async (req, res, next) => {
             'INSERT INTO recipe (title, image_url) VALUES (?, ?)',
             [title, image_url]
         );
-        // 저장 후 메인 페이지로 리다이렉트
         res.redirect('/');
     } catch (err) {
         next(err);

@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<main>
+    <div class="detail-card">
+        <h2><%= recipe.title %></h2>
+        <img
+                src="<%= recipe.image_url %>"
+                alt="<%= recipe.title %>"
+                onerror="this.src='/images/placeholder.png'"
+        />
+        <section>
+            <h3>재료</h3>
+            <p><%= recipe.ingredients %></p>
+        </section>
+        <section>
+            <h3>조리 방법</h3>
+            <p><%= recipe.instructions %></p>
+        </section>
+        <a href="/" class="button">목록으로 돌아가기</a>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
