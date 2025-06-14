@@ -46,12 +46,30 @@ async function fetchApiRecipeDetail(id) {
   const { data } = await axios.get(url, { params: { RCP_SEQ: id } });
   const row = (data.COOKRCP01.row || [])[0];
   if (!row) return null;
+
+  // 1) 재료
+  const ingredients = row.RCP_PARTS_DTLS || '';
+
+  // 2) 조리 순서: MANUAL01…MANUAL20 필드를 순회해서 합치기
+  const steps = [];
+  for (let i = 1; i <= 20; i++) {
+    const key = `MANUAL${String(i).padStart(2, '0')}`;
+    if (row[key] && row[key].trim()) {
+      steps.push(`${i}. ${row[key].trim()}`);
+    }
+  }
+
+  // 3) 또는 전체 지침이 들어있는 RCP_COOKING_DC 사용 (있다면)
+  const dc = row.RCP_COOKING_DC && row.RCP_COOKING_DC.trim();
+
   return {
     id:           row.RCP_SEQ,
     title:        row.RCP_NM,
     image_url:    row.ATT_FILE_NO_MAIN   || '',
-    ingredients:  row.RCP_PARTS_DTLS     || '',
-    instructions: row.RCP_WAY2           || ''
+    ingredients,
+    instructions: steps.length
+        ? steps.join('\n')
+        : dc || '조리 방법이 없습니다.'
   };
 }
 
