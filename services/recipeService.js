@@ -5,7 +5,7 @@ require('dotenv').config();
 const API_KEY  = process.env.FOOD_API_KEY;
 const API_BASE = `https://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json`;
 
-// 로컬 DB에서 레시피 목록을 가져옵니다.
+// 로컬 DB에서 레시피 목록을 가져오기
 async function fetchDbRecipes() {
   const [rows] = await pool.query(
       'SELECT id, title, image_url FROM recipe ORDER BY created_at DESC'
@@ -17,7 +17,7 @@ async function fetchDbRecipes() {
   }));
 }
 
-// 외부 API에서 레시피 목록을 가져옵니다. (start–end 범위 지정 가능)
+// 외부 API에서 레시피 목록을 가져오기 (start–end 범위 지정 가능)
 async function fetchApiRecipes(limit = { start: 1, end: 8 }) {
   const url = `${API_BASE}/${limit.start}/${limit.end}`;
   const { data } = await axios.get(url);
@@ -28,7 +28,7 @@ async function fetchApiRecipes(limit = { start: 1, end: 8 }) {
   }));
 }
 
-// 로컬 DB에서 특정 레시피 상세를 가져옵니다.
+// 로컬 DB에서 레시피 디테일 가져오기
 async function fetchDbRecipeDetail(id) {
   const [[row]] = await pool.query(
       'SELECT * FROM recipe WHERE id = ?',
@@ -37,7 +37,7 @@ async function fetchDbRecipeDetail(id) {
   return row || null;
 }
 
-// 외부 API에서 특정 레시피 상세를 가져옵니다.
+// 외부 API에서 레시피 디테일 가져오기
 async function fetchApiRecipeDetail(id) {
   const url = `${API_BASE}/1/1`;
   const { data } = await axios.get(url, { params: { RCP_SEQ: id } });
@@ -76,9 +76,26 @@ async function fetchApiRecipeDetail(id) {
   };
 }
 
+// 로컬 DB에 레시피 등록하기
+async function createRecipe({ title, image_url, ingredients, instructions }) {
+  const sql = `
+    INSERT INTO recipe
+      (title, image_url, ingredients, instructions)
+    VALUES (?, ?, ?, ?)
+  `;
+  const [result] = await pool.query(sql, [
+    title,
+    image_url,
+    ingredients,
+    instructions
+  ]);
+  return result.insertId;
+}
+
 module.exports = {
   fetchDbRecipes,
   fetchApiRecipes,
   fetchDbRecipeDetail,
-  fetchApiRecipeDetail
+  fetchApiRecipeDetail,
+  createRecipe
 };

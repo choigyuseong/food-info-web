@@ -3,7 +3,8 @@ const {
     fetchDbRecipes,
     fetchApiRecipes,
     fetchDbRecipeDetail,
-    fetchApiRecipeDetail
+    fetchApiRecipeDetail,
+    createRecipe
 } = require('../services/recipeService');
 
 // 메인 페이지
@@ -38,11 +39,8 @@ exports.showCreateForm = (req, res) => res.render('create');
 // 등록 처리
 exports.createRecipe = async (req, res, next) => {
     try {
-        const { title, image_url } = req.body;
-        await pool.query(
-            'INSERT INTO recipe (title, image_url) VALUES (?, ?)',
-            [title, image_url]
-        );
+        const { title, image_url, ingredients, instructions } = req.body;
+        await createRecipe({ title, image_url, ingredients, instructions });
         res.redirect('/');
     } catch (err) {
         next(err);
