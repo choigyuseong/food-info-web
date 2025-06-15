@@ -1,7 +1,8 @@
-<%- include('partials/header') %>
+<% title = `"${query}" 검색 결과` %>
 
-<main>
+<div class="main">
     <h2>“<%= query %>” 검색 결과</h2>
+
     <% if (!recipes.length) { %>
         <p>‘<%= query %>’에 해당하는 레시피가 없습니다.</p>
     <% } else { %>
@@ -10,16 +11,15 @@
                 <div class="card">
                     <a href="/recipes/<%= r.id %>">
                         <img
+                                class="card__img"
                                 src="<%= r.image_url %>"
                                 alt="<%= r.title %>"
                                 onerror="this.src='/images/placeholder.png'"
                         />
-                        <h3><%= r.title %></h3>
+                        <h3 class="card__title"><%= r.title %></h3>
                     </a>
                 </div>
             <% }) %>
         </div>
     <% } %>
-</main>
-
-<%- include('partials/footer') %>
+</div>

@@ -1,24 +1,18 @@
-<%- include('partials/header') %>
+<% title = '레시피 등록' %>
 
-<main>
+<div class="main form">
     <h2>레시피 등록</h2>
-    <form action="/recipes/create" method="POST">
-        <label for="title">레시피 이름</label>
-        <input type="text" id="title" name="title" required />
+    <label class="form__label" for="title">레시피 이름</label>
+    <input class="form__input" type="text" id="title" name="title" required />
 
-        <label for="image_url">이미지 URL</label>
-        <input type="text" id="image_url" name="image_url" />
+    <label class="form__label" for="image_url">이미지 URL</label>
+    <input class="form__input" type="text" id="image_url" name="image_url" />
 
-        <label for="ingredients">재료</label>
-        <textarea id="ingredients" name="ingredients" required
-                  placeholder="예) 햇반 1개, 토마토 2개, 달걀 1/2개…"></textarea>
+    <label class="form__label" for="ingredients">재료</label>
+    <textarea class="form__textarea" id="ingredients" name="ingredients" required></textarea>
 
-        <label for="instructions">조리 방법</label>
-        <textarea id="instructions" name="instructions" required
-                  placeholder="예) 1. 토마토를 씻고…&#10;2. 팬에 식용유를…"></textarea>
+    <label class="form__label" for="instructions">조리 방법</label>
+    <textarea class="form__textarea" id="instructions" name="instructions" required></textarea>
 
-        <button type="submit" class="button">등록하기</button>
-    </form>
-</main>
-
-<%- include('partials/footer') %>
+    <button type="submit" class="button button--primary">등록하기</button>
+</div>

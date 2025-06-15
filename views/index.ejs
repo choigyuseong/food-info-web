@@ -1,5 +1,6 @@
-<%- include('partials/header') %>
-<main>
+<% title = '홈' %>
+
+<div class="main">
     <h2>추천 레시피</h2>
     <% if (!recipes.length) { %>
         <p>등록된 레시피가 없습니다.</p>
@@ -8,16 +9,11 @@
             <% recipes.forEach(r => { %>
                 <div class="card">
                     <a href="/recipes/<%= r.id %>">
-                        <img
-                                src="<%= r.image_url %>"
-                                alt="<%= r.title %>"
-                                onerror="this.src='/images/placeholder.png'"
-                        />
-                        <h3><%= r.title %></h3>
+                        <img class="card__img" src="<%= r.image_url %>" alt="<%= r.title %>" />
+                        <h3 class="card__title"><%= r.title %></h3>
                     </a>
                 </div>
             <% }) %>
         </div>
     <% } %>
-</main>
-<%- include('partials/footer') %>
+</div>

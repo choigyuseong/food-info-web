@@ -1,0 +1,62 @@
+/* — 헤더 & 푸터 — */
+.header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0; z-index: 10;
+}
+.header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; align-items: center;
+    padding: var(--gap);
+}
+
+/* 로고 */
+.header__logo a {
+    font-size: var(--font-xl);
+    color: var(--color-text);
+}
+
+
+/* 검색 폼 */
+.header__search {
+    flex: 1;
+    margin: 0 var(--gap);
+    display: flex;
+}
+.header__search input {
+    flex: 1;
+    padding: 0.5em var(--gap-sm);
+    border: 1px solid #ddd;
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+.header__search button {
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* 우측 네비게이션 버튼들 */
+.header__nav {
+    display: flex;
+    gap: var(--gap-sm);
+}
+
+.main {
+    max-width: 1200px;
+    margin: var(--gap) auto;
+    padding: 0 var(--gap);
+}
+
+/* 그리드 레이아웃 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--gap);
+}
+
+.footer {
+    text-align: center;
+    padding: var(--gap);
+    font-size: 0.875rem;
+    color: #777;
+}
