@@ -50,16 +50,26 @@ async function fetchApiRecipeDetail(id) {
   // 1) 재료
   const ingredients = row.RCP_PARTS_DTLS || '';
 
-  // 2) 조리 순서: MANUAL01…MANUAL20 필드를 순회해서 합치기
+  // 2) 단계별 조리 순서 정리
   const steps = [];
   for (let i = 1; i <= 20; i++) {
     const key = `MANUAL${String(i).padStart(2, '0')}`;
-    if (row[key] && row[key].trim()) {
-      steps.push(`${i}. ${row[key].trim()}`);
+    let text = row[key];
+    if (text && text.trim()) {
+      text = text.trim()
+          // 앞번호 제거: "1. " → ""
+          .replace(/^\d+\.\s*/, '')
+          // 뒤 “.a”, “.b” 제거
+          .replace(/\.\s*[A-Za-z]+$/, '')
+          // 중간 “(1)”, “(2)” 제거
+          .replace(/\(\d+\)/g, '')
+          .trim();
+
+      steps.push(`${i}. ${text}`);
     }
   }
 
-  // 3) 또는 전체 지침이 들어있는 RCP_COOKING_DC 사용 (있다면)
+  // 3) 만약 단계 필드가 없으면 전체 지침 필드 이용
   const dc = row.RCP_COOKING_DC && row.RCP_COOKING_DC.trim();
 
   return {
