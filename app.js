@@ -10,7 +10,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
-app.set('layout', 'layout');   // views/layout.ejs 를 기본 레이아웃으로
+app.set('layout', 'layout');
 
 // 정적 파일, 바디파서 등 기존 설정
 app.use(express.static(path.join(__dirname, 'public')));
