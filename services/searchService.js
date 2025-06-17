@@ -1,4 +1,3 @@
-// services/searchService.js
 const pool = require('../models/db');
 
 async function searchRecipes(keyword) {
