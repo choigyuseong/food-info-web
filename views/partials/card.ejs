@@ -1,0 +1,13 @@
+<div class="card">
+    <a href="/recipes/<%= recipe.id %>">
+        <div class="card__img-wrapper">
+            <img
+                    class="card__img"
+                    src="<%= recipe.image_url %>"
+                    alt="<%= recipe.title %>"
+                    onerror="this.src='/images/placeholder.png'"
+            />
+        </div>
+        <h3 class="card__title"><%= recipe.title %></h3>
+    </a>
+</div>
