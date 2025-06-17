@@ -1,20 +1,28 @@
 <% title = recipe.title %>
 
-<div class="main detail-card">
-    <h2><%= recipe.title %></h2>
-    <img class="detail-card__img" src="<%= recipe.image_url %>" alt="<%= recipe.title %>" />
+<div class="main detail-page">
+    <h1 class="detail-page__title"><%= recipe.title %></h1>
 
-    <section>
-        <h3>재료</h3>
+    <div class="detail-page__img-wrapper">
+        <img
+                class="detail-page__img"
+                src="<%= recipe.image_url %>"
+                alt="<%= recipe.title %>"
+                onerror="this.src='/images/placeholder.png'"
+        />
+    </div>
+
+    <section class="detail-page__section">
+        <h2 class="detail-page__section-title">재료</h2>
         <p><%= recipe.ingredients %></p>
     </section>
 
-    <section>
-        <h3>조리 방법</h3>
-        <div class="instructions" style="white-space: pre-line;">
-            <%= recipe.instructions %>
-        </div>
+    <section class="detail-page__section">
+        <h2 class="detail-page__section-title">조리 방법</h2>
+        <div class="detail-page__instructions"><%= recipe.instructions %></div>
     </section>
 
-    <a href="/" class="button button--primary-outlined">목록으로 돌아가기</a>
+    <a href="/" class="button button--primary-outlined detail-page__back">
+        목록으로 돌아가기
+    </a>
 </div>

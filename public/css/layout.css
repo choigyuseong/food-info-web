@@ -1,25 +1,25 @@
-/* — 헤더 & 푸터 — */
+/* — 헤더 & 내비게이션 — */
 .header {
-    background: #fff;
+    background: var(--color-card-bg);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     position: sticky;
-    top: 0; z-index: 10;
+    top: 0;
+    z-index: 10;
 }
+
 .header__inner {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex; align-items: center;
+    display: flex;
+    align-items: center;
     padding: var(--gap);
 }
 
-/* 로고 */
 .header__logo a {
     font-size: var(--font-xl);
     color: var(--color-text);
 }
 
-
-/* 검색 폼 */
 .header__search {
     flex: 1;
     margin: 0 var(--gap);
@@ -35,25 +35,35 @@
     border-radius: 0 var(--radius) var(--radius) 0;
 }
 
-/* 우측 네비게이션 버튼들 */
 .header__nav {
     display: flex;
     gap: var(--gap-sm);
 }
 
+/* — 메인 컨테이너 & 그리드 — */
 .main {
     max-width: 1200px;
-    margin: var(--gap) auto;
+    margin: var(--gap-lg) auto;
     padding: 0 var(--gap);
 }
 
-/* 그리드 레이아웃 */
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 고정 */
     gap: var(--gap);
 }
 
+/* — 상세 페이지 래퍼 — */
+.detail-page {
+    max-width: 800px;
+    margin: var(--gap-lg) auto;
+    padding: var(--gap);
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* — 푸터 — */
 .footer {
     text-align: center;
     padding: var(--gap);
