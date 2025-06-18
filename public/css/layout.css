@@ -1,7 +1,7 @@
 /* — 헤더 & 내비게이션 — */
 .header {
     background: var(--color-card-bg);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -25,12 +25,14 @@
     margin: 0 var(--gap);
     display: flex;
 }
+
 .header__search input {
     flex: 1;
     padding: 0.5em var(--gap-sm);
     border: 1px solid #ddd;
     border-radius: var(--radius) 0 0 var(--radius);
 }
+
 .header__search button {
     border-radius: 0 var(--radius) var(--radius) 0;
 }
@@ -50,7 +52,8 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 고정 */
-    gap: var(--gap);
+    column-gap: var(--gap-lg);
+    row-gap: var(--gap-xl);
 }
 
 /* — 상세 페이지 래퍼 — */
@@ -60,7 +63,7 @@
     padding: var(--gap);
     background: var(--color-card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /*등록 페이지 래퍼*/
@@ -70,7 +73,7 @@
     padding: var(--gap-lg);
     background: var(--color-card-bg);
     border-radius: var(--radius);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* — 푸터 — */

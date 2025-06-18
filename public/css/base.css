@@ -1,19 +1,20 @@
 /* — 리셋 & 글로벌 변수 — */
 :root {
-    --gap:              1rem;
-    --gap-sm:           0.5rem;
-    --gap-lg:           2rem;
-    --font-base:        16px;
-    --font-lg:          1.25rem;
-    --font-xl:          1.5rem;
-    --color-bg:         #f5f5f5;
-    --color-text:       #333333;
-    --color-primary:    #3c8dbc;
+    --gap: 1rem;
+    --gap-sm: 0.5rem;
+    --gap-lg: 2rem;
+    --gap-xl: 3rem;
+    --font-base: 16px;
+    --font-lg: 1.25rem;
+    --font-xl: 1.5rem;
+    --color-bg: #f5f5f5;
+    --color-text: #333333;
+    --color-primary: #3c8dbc;
     --color-primary-dark: #357ca5;
-    --color-secondary:  #ffe0b2;
-    --color-card-bg:    #ffffff;
-    --radius:           8px;
-    --transition:       0.2s ease-in-out;
+    --color-secondary: #ffe0b2;
+    --color-card-bg: #ffffff;
+    --radius: 8px;
+    --transition: 0.2s ease-in-out;
 }
 
 /* 박스 리셋 */
@@ -38,6 +39,7 @@ a {
     text-decoration: none;
     transition: color var(--transition);
 }
+
 a:hover {
     color: var(--color-primary-dark);
 }
