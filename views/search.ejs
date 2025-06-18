@@ -16,6 +16,8 @@
 
             <% if (hasPrevBlock) { %>
                 <a href="<%= base %>&page=<%= startPage - 1 %>">‹‹</a>
+            <% } else { %>
+                <a class="disabled">‹‹</a>
             <% } %>
 
             <% for (let p = startPage; p <= endPage; p++) { %>
@@ -27,6 +29,8 @@
 
             <% if (hasNextBlock) { %>
                 <a href="<%= base %>&page=<%= endPage + 1 %>">››</a>
+            <% } else { %>
+                <a class="disabled">››</a>
             <% } %>
         </nav>
 

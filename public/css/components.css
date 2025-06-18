@@ -149,3 +149,19 @@
     font-size: var(--font-lg);
     margin-bottom: var(--gap);
 }
+
+/*페이지 선택 컴포넌트*/
+.pagination a.active {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+    cursor: default;
+    pointer-events: none;
+    font-weight: bold;
+}
+
+.pagination a.disabled {
+    color: #ccc;
+    border-color: #ccc;
+    pointer-events: none;
+}

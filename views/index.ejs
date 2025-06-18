@@ -15,6 +15,8 @@
         <nav class="pagination">
             <% if (hasPrevBlock) { %>
                 <a href="?page=<%= startPage - 1 %>">‹‹</a>
+            <% } else { %>
+                <a class="disabled">‹‹</a>
             <% } %>
 
             <% for (let p = startPage; p <= endPage; p++) { %>
@@ -26,7 +28,10 @@
 
             <% if (hasNextBlock) { %>
                 <a href="?page=<%= endPage + 1 %>">››</a>
+            <% } else { %>
+                <a class="disabled">››</a>
             <% } %>
         </nav>
+
     <% } %>
 </div>
