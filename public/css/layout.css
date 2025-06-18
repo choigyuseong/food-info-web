@@ -63,6 +63,16 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/*등록 페이지 래퍼*/
+.create-page {
+    max-width: 600px;
+    margin: var(--gap-lg) auto;
+    padding: var(--gap-lg);
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
 /* — 푸터 — */
 .footer {
     text-align: center;

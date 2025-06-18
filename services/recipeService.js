@@ -80,6 +80,17 @@ async function fetchApiRecipeDetail(id) {
     };
 }
 
+// 검색한 요리 외부 API 에서 찾기
+async function fetchApiRecipesByName(keyword, limit = { start: 1, end: 8 }) {
+    const url = `${API_BASE}/${limit.start}/${limit.end}/RCP_NM=${encodeURIComponent(keyword)}`;
+    const { data } = await axios.get(url);
+    return (data.COOKRCP01.row || []).map(r => ({
+        id:        r.RCP_SEQ,
+        title:     r.RCP_NM,
+        image_url: r.ATT_FILE_NO_MAIN || ''
+    }));
+}
+
 // 로컬 DB에 레시피 등록하기
 async function createRecipe({title, image_url, ingredients, instructions}) {
     const sql = `
@@ -101,5 +112,6 @@ module.exports = {
     fetchApiRecipes,
     fetchDbRecipeDetail,
     fetchApiRecipeDetail,
+    fetchApiRecipesByName,
     createRecipe
 };

@@ -1,18 +1,31 @@
 <% title = '레시피 등록' %>
 
-<div class="main form">
-    <h2>레시피 등록</h2>
-    <label class="form__label" for="title">레시피 이름</label>
-    <input class="form__input" type="text" id="title" name="title" required />
+<div class="main create-page">
+    <h2 class="section-title">레시피 등록</h2>
 
-    <label class="form__label" for="image_url">이미지 URL</label>
-    <input class="form__input" type="text" id="image_url" name="image_url" />
+    <form class="form" action="/recipes/create" method="POST">
+        <div class="form__group">
+            <label class="form__label" for="title">레시피 이름</label>
+            <input class="form__control" id="title" name="title" type="text" required />
+        </div>
 
-    <label class="form__label" for="ingredients">재료</label>
-    <textarea class="form__textarea" id="ingredients" name="ingredients" required></textarea>
+        <div class="form__group">
+            <label class="form__label" for="image_url">이미지 URL</label>
+            <input class="form__control" id="image_url" name="image_url" type="text" />
+        </div>
 
-    <label class="form__label" for="instructions">조리 방법</label>
-    <textarea class="form__textarea" id="instructions" name="instructions" required></textarea>
+        <div class="form__group">
+            <label class="form__label" for="ingredients">재료</label>
+            <textarea class="form__control form__textarea" id="ingredients" name="ingredients" required></textarea>
+        </div>
 
-    <button type="submit" class="button button--primary">등록하기</button>
+        <div class="form__group">
+            <label class="form__label" for="instructions">조리 방법</label>
+            <textarea class="form__control form__textarea" id="instructions" name="instructions" required></textarea>
+        </div>
+
+        <div class="form__group">
+            <button type="submit" class="button button--primary">등록하기</button>
+        </div>
+    </form>
 </div>

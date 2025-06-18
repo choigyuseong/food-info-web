@@ -123,3 +123,9 @@
     width: fit-content;
     margin: var(--gap-lg) auto 0;
 }
+
+/*등록 페이지 내부 컴포넌트*/
+.section-title {
+    font-size: var(--font-lg);
+    margin-bottom: var(--gap);
+}
