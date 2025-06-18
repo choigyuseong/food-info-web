@@ -13,13 +13,12 @@ function toSummary(record, source) {
             title: record.title,
             image_url: record.image_url || ''
         };
-    } else {
-        return {
-            id: record.RCP_SEQ,
-            title: record.RCP_NM,
-            image_url: record.ATT_FILE_NO_MAIN || ''
-        };
     }
+    return {
+        id: record.RCP_SEQ,
+        title: record.RCP_NM,
+        image_url: record.ATT_FILE_NO_MAIN || ''
+    };
 }
 
 // DB에서 레시피 목록 가져오기
@@ -30,7 +29,7 @@ async function fetchDbRecipes() {
     return rows.map(r => toSummary(r, 'db'));
 }
 
-// 외부 API에서 레시피 목록 가져오기
+// 외부 API에서 레시피 목록 가져오기 (동적 범위)
 async function fetchApiRecipes(limit = {start: 1, end: 8}) {
     const url = `${API_BASE}/${limit.start}/${limit.end}`;
     const {data} = await axios.get(url);
@@ -39,27 +38,30 @@ async function fetchApiRecipes(limit = {start: 1, end: 8}) {
 }
 
 // 페이지네이션 포함 목록 조회
-async function listRecipes({ page = 1, pageSize = 8 } = {}) {
-    // 1) DB 전체 목록
-    const allDb = await fetchDbRecipes();
+async function listRecipes({page = 1, pageSize = 8} = {}) {
+    // DB 레시피 전체
+    const dbRecipes = await fetchDbRecipes();
 
-    // 2) API는 해당 페이지 범위만 가져오기
+    // API는 현재 페이지 범위만
     const apiStart = (page - 1) * pageSize + 1;
-    const apiEnd   = page * pageSize;
-    const allApi   = await fetchApiRecipes({ start: apiStart, end: apiEnd });
+    const apiEnd = page * pageSize;
+    const apiRecipes = await fetchApiRecipes({start: apiStart, end: apiEnd});
 
-    // 3) DB와 API 합치기
-    const all         = allDb.concat(allApi);
-    const totalItems  = all.length;
-    const totalPages  = Math.ceil(totalItems / pageSize);
+    // 첫 페이지는 DB+API, 나머지는 API 페이지만
+    let recipes;
+    if (page === 1) {
+        // DB 레시피 + API 레시피 합친 뒤 처음 pageSize개
+        recipes = dbRecipes.concat(apiRecipes).slice(0, pageSize);
+    } else {
+        recipes = apiRecipes;
+    }
 
-    // 4) DB + API 합친 것에서 실제로 화면에 보여줄 슬라이스
-    const startIdx    = (page - 1) * pageSize;
-    const recipes     = all.slice(startIdx, startIdx + pageSize);
+    // 총 아이템 수(DB+API 전체)로 페이지 수 계산
+    const totalItems = dbRecipes.length + apiRecipes.length;
+    const totalPages = Math.ceil(totalItems / pageSize);
 
-    return { recipes, page, totalPages };
+    return {recipes, page, totalPages};
 }
-
 
 // DB에서 단일 레시피 상세 조회
 async function fetchDbRecipeDetail(id) {
@@ -78,10 +80,7 @@ async function fetchApiRecipeDetail(id) {
     const matched = apiRows.find(r => String(r.RCP_SEQ) === String(id));
     if (!matched) return null;
 
-    // 재료
     const ingredients = matched.RCP_PARTS_DTLS || '';
-
-    // 단계별 조리 순서
     const steps = [];
     for (let i = 1; i <= 20; i++) {
         const key = `MANUAL${String(i).padStart(2, '0')}`;
@@ -109,7 +108,7 @@ async function fetchApiRecipeDetail(id) {
     };
 }
 
-// 외부 API 에서 이름으로 레시피 목록 가져오기
+// 이름으로 외부 API 에서 레시피 목록 조회
 async function fetchApiRecipesByName(keyword, limit = { start: 1, end: 8 }) {
     const url = `${API_BASE}/${limit.start}/${limit.end}/RCP_NM=${encodeURIComponent(keyword)}`;
     const { data } = await axios.get(url);
@@ -143,9 +142,9 @@ async function createRecipe({title, image_url, ingredients, instructions}) {
 module.exports = {
     fetchDbRecipes,
     fetchApiRecipes,
+    listRecipes,
     fetchDbRecipeDetail,
     fetchApiRecipeDetail,
-    listRecipes,
     fetchApiRecipesByName,
     getRecipe,
     createRecipe
