@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food Info Web</title>
-    <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-<header>
-    <h1><a href="/">🍽 Food Info Web</a></h1>
-    <form action="/search" method="GET" class="search-form">
-        <input
-                type="text"
-                name="q"
-                placeholder="레시피 검색..."
-                required
-        />
-        <button type="submit" class="button">검색</button>
-    </form>
+<header class="header">
+    <div class="header__inner">
+        <h1 class="header__logo"><a href="/">한식 레시피</a></h1>
+
+        <form class="header__search" action="/search" method="GET">
+            <input type="text" name="q" placeholder="어떤 요리가 궁금하신가요?"/>
+            <button type="submit" class="button button--primary">검색</button>
+        </form>
+
+        <nav class="header__nav">
+            <a href="/recommend" class="button button--secondary">오늘의 요리 추천</a>
+            <a href="/recipes/create" class="button button--primary-outlined">나만의 요리 추가</a>
+        </nav>
+    </div>
 </header>

@@ -1,9 +1,9 @@
 /* — 리셋 & 글로벌 변수 — */
 :root {
     --gap: 1rem;
-    --gap-sm: 0.5rem;
-    --gap-lg: 2rem;
-    --gap-xl: 3rem;
+    --gap-sm: 2rem;
+    --gap-lg: 3rem;
+    --gap-xl: 4rem;
     --font-base: 16px;
     --font-lg: 1.25rem;
     --font-xl: 1.5rem;
@@ -31,6 +31,7 @@ body {
     color: var(--color-text);
     background: var(--color-bg);
     line-height: 1.6;
+    overflow-x: auto;
 }
 
 /* 전역 링크 */

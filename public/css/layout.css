@@ -9,10 +9,15 @@
 
 .header__inner {
     max-width: 1200px;
+    min-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     padding: var(--gap);
+}
+
+.header__logo {
+    margin-right: 6em;
 }
 
 .header__logo a {
@@ -27,10 +32,16 @@
 }
 
 .header__search input {
-    flex: 1;
-    padding: 0.5em var(--gap-sm);
+    flex: none;
+    width: 400px;
+    max-width: 100%;
+    padding: 0.5em 0.75em;
     border: 1px solid #ddd;
     border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.header__search input::placeholder {
+    padding-left: 0.25em;
 }
 
 .header__search button {
@@ -45,15 +56,16 @@
 /* — 메인 컨테이너 & 그리드 — */
 .main {
     max-width: 1200px;
+    min-width: 1200px;
     margin: var(--gap-lg) auto;
     padding: 0 var(--gap);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 고정 */
+    grid-template-columns: repeat(4, 1fr);
     column-gap: var(--gap-lg);
-    row-gap: var(--gap-xl);
+    row-gap: var(--gap-lg);
 }
 
 /* — 상세 페이지 래퍼 — */
