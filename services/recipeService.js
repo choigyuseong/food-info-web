@@ -38,19 +38,38 @@ async function fetchApiRecipes(limit = {start: 1, end: 8}) {
 }
 
 // 페이지네이션 포함 목록 조회
-async function listRecipes({page = 1, pageSize = 8} = {}) {
+async function listRecipesWithPaging({ page = 1, pageSize = 8, blockSize = 10 } = {}) {
+    // 1) DB 전체
     const dbRecipes = await fetchDbRecipes();
 
-    const apiAll = await fetchApiRecipes({start: 1, end: 1000});
+    // 2) API 전체 (1~1000 정도 넉넉히)
+    const apiAll = await fetchApiRecipes({ start: 1, end: 1000 });
 
+    // 3) DB+API 전체
     const all = dbRecipes.concat(apiAll);
 
-    const totalPages = Math.ceil(all.length / pageSize);
+    // 4) 전체 페이지 수
+    const totalPages  = Math.ceil(all.length / pageSize);
+    // 5) 현재 페이지에 보여줄 아이템
+    const startIdx    = (page - 1) * pageSize;
+    const recipes     = all.slice(startIdx, startIdx + pageSize);
 
-    const startIdx = (page - 1) * pageSize;
-    const recipes = all.slice(startIdx, startIdx + pageSize);
+    // 6) 블록 계산
+    const currentBlock = Math.ceil(page / blockSize);
+    const startPage    = (currentBlock - 1) * blockSize + 1;
+    const endPage      = Math.min(currentBlock * blockSize, totalPages);
+    const hasPrevBlock = startPage > 1;
+    const hasNextBlock = endPage < totalPages;
 
-    return {recipes, page, totalPages};
+    return {
+        recipes,
+        page,
+        totalPages,
+        startPage,
+        endPage,
+        hasPrevBlock,
+        hasNextBlock
+    };
 }
 
 // DB에서 단일 레시피 상세 조회
@@ -132,7 +151,7 @@ async function createRecipe({title, image_url, ingredients, instructions}) {
 module.exports = {
     fetchDbRecipes,
     fetchApiRecipes,
-    listRecipes,
+    listRecipesWithPaging,
     fetchDbRecipeDetail,
     fetchApiRecipeDetail,
     fetchApiRecipesByName,

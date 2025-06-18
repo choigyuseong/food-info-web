@@ -13,8 +13,19 @@
         </div>
 
         <nav class="pagination">
-            <% for (let p = 1; p <= totalPages; p++) { %>
-                <a href="?page=<%= p %>" class="<%= p === page ? 'active' : '' %>"><%= p %></a>
+            <% if (hasPrevBlock) { %>
+                <a href="?page=<%= startPage - 1 %>">‹‹</a>
+            <% } %>
+
+            <% for (let p = startPage; p <= endPage; p++) { %>
+                <a
+                        href="?page=<%= p %>"
+                        class="<%= p === page ? 'active' : '' %>"
+                ><%= p %></a>
+            <% } %>
+
+            <% if (hasNextBlock) { %>
+                <a href="?page=<%= endPage + 1 %>">››</a>
             <% } %>
         </nav>
     <% } %>

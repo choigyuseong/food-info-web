@@ -1,20 +1,16 @@
-const {searchRecipes} = require('../services/searchService');
+const {searchRecipesWithPaging} = require('../services/searchService');
 
+// 검색 페이지
 exports.searchPage = async (req, res, next) => {
     try {
         const query = req.query.q || '';
         const page = parseInt(req.query.page, 10) || 1;
-        const pageSize = 8;
-
-        const {recipes, page: currentPage, totalPages} =
-            await searchRecipes(query, page, pageSize);
-
-        res.render('search', {
-            recipes,
-            query,
-            page: currentPage,
-            totalPages
+        const pagingData = await searchRecipesWithPaging({
+            keyword: query,
+            page
         });
+
+        res.render('search', pagingData);
     } catch (err) {
         next(err);
     }

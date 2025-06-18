@@ -1,12 +1,11 @@
-const {listRecipes, getRecipe, createRecipe} = require('../services/recipeService');
+const {listRecipesWithPaging, getRecipe, createRecipe} = require('../services/recipeService');
 
 // 메인 페이지
 exports.mainPage = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page, 10) || 1;
-        const pageSize = 8;
-        const {recipes, page: currentPage, totalPages} = await listRecipes({page, pageSize});
-        res.render('index', {recipes, page: currentPage, totalPages});
+        const pagingData = await listRecipesWithPaging({page});
+        res.render('index', pagingData);
     } catch (err) {
         next(err);
     }

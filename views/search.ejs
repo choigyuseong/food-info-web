@@ -12,13 +12,24 @@
         </div>
 
         <nav class="pagination">
-            <% for (let p = 1; p <= totalPages; p++) { %>
+            <% const base = `?q=${encodeURIComponent(query)}` %>
+
+            <% if (hasPrevBlock) { %>
+                <a href="<%= base %>&page=<%= startPage - 1 %>">‹‹</a>
+            <% } %>
+
+            <% for (let p = startPage; p <= endPage; p++) { %>
                 <a
-                        href="?q=<%= encodeURIComponent(query) %>&page=<%= p %>"
+                        href="<%= base %>&page=<%= p %>"
                         class="<%= p === page ? 'active' : '' %>"
                 ><%= p %></a>
             <% } %>
+
+            <% if (hasNextBlock) { %>
+                <a href="<%= base %>&page=<%= endPage + 1 %>">››</a>
+            <% } %>
         </nav>
+
     <% } %>
 </div>
 
