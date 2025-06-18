@@ -1,4 +1,3 @@
-// controllers/searchController.js
 const { searchRecipes } = require('../services/searchService');
 
 exports.searchPage = async (req, res, next) => {
