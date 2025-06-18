@@ -1,0 +1,15 @@
+<% title = '오늘의 요리 추천' %>
+
+<div class="main">
+    <h2 class="section-title"><%= title %></h2>
+
+    <% if (!recipes.length) { %>
+        <p>추천할 요리가 없습니다.</p>
+    <% } else { %>
+        <div class="grid">
+            <% recipes.forEach(recipe => { %>
+                <%- include('partials/card', { recipe }) %>
+            <% }) %>
+        </div>
+    <% } %>
+</div>

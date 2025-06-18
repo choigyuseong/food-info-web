@@ -1,4 +1,4 @@
-const {listRecipesWithPaging, getRecipe, createRecipe} = require('../services/recipeService');
+const {listRecipesWithPaging, getRecipe, createRecipe, fetchRecommendedRecipes} = require('../services/recipeService');
 
 // 메인 페이지
 exports.mainPage = async (req, res, next) => {
@@ -35,6 +35,17 @@ exports.createRecipe = async (req, res, next) => {
     try {
         await createRecipe(req.body);
         res.redirect('/');
+    } catch (err) {
+        next(err);
+    }
+};
+
+// 추천 페이지
+exports.recommendPage = async (req, res, next) => {
+    try {
+        // 4개 랜덤으로 추천
+        const recipes = await fetchRecommendedRecipes(4);
+        res.render('recommend', { recipes, title: '오늘의 요리 추천' });
     } catch (err) {
         next(err);
     }

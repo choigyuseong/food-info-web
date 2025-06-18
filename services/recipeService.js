@@ -148,6 +148,19 @@ async function createRecipe({title, image_url, ingredients, instructions}) {
     return result.insertId;
 }
 
+async function fetchRecommendedRecipes(n = 4) {
+    const dbList  = await fetchDbRecipes();
+    const apiList = await fetchApiRecipes({ start: 1, end: 50 });
+
+    const all = [...dbList, ...apiList];
+    for (let i = all.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [all[i], all[j]] = [all[j], all[i]];
+    }
+
+    return all.slice(0, n);
+}
+
 module.exports = {
     fetchDbRecipes,
     fetchApiRecipes,
@@ -156,5 +169,6 @@ module.exports = {
     fetchApiRecipeDetail,
     fetchApiRecipesByName,
     getRecipe,
-    createRecipe
+    createRecipe,
+    fetchRecommendedRecipes
 };

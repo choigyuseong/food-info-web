@@ -164,7 +164,7 @@
 .pagination {
     display: flex;
     justify-content: center;
-    gap: var(--gap-sm);
+    gap: var(--gap);
     margin: var(--gap-lg) 0;
 }
 

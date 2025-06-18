@@ -13,4 +13,6 @@ router.get('/recipes/:id', ctrl.detailPage);
 // POST 등록 처리
 router.post('/recipes/create', ctrl.createRecipe);
 
+router.get('/recommend', ctrl.recommendPage);
+
 module.exports = router;
