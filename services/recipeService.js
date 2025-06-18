@@ -39,26 +39,16 @@ async function fetchApiRecipes(limit = {start: 1, end: 8}) {
 
 // 페이지네이션 포함 목록 조회
 async function listRecipes({page = 1, pageSize = 8} = {}) {
-    // DB 레시피 전체
     const dbRecipes = await fetchDbRecipes();
 
-    // API는 현재 페이지 범위만
-    const apiStart = (page - 1) * pageSize + 1;
-    const apiEnd = page * pageSize;
-    const apiRecipes = await fetchApiRecipes({start: apiStart, end: apiEnd});
+    const apiAll = await fetchApiRecipes({start: 1, end: 1000});
 
-    // 첫 페이지는 DB+API, 나머지는 API 페이지만
-    let recipes;
-    if (page === 1) {
-        // DB 레시피 + API 레시피 합친 뒤 처음 pageSize개
-        recipes = dbRecipes.concat(apiRecipes).slice(0, pageSize);
-    } else {
-        recipes = apiRecipes;
-    }
+    const all = dbRecipes.concat(apiAll);
 
-    // 총 아이템 수(DB+API 전체)로 페이지 수 계산
-    const totalItems = dbRecipes.length + apiRecipes.length;
-    const totalPages = Math.ceil(totalItems / pageSize);
+    const totalPages = Math.ceil(all.length / pageSize);
+
+    const startIdx = (page - 1) * pageSize;
+    const recipes = all.slice(startIdx, startIdx + pageSize);
 
     return {recipes, page, totalPages};
 }
@@ -109,9 +99,9 @@ async function fetchApiRecipeDetail(id) {
 }
 
 // 이름으로 외부 API 에서 레시피 목록 조회
-async function fetchApiRecipesByName(keyword, limit = { start: 1, end: 8 }) {
+async function fetchApiRecipesByName(keyword, limit = {start: 1, end: 8}) {
     const url = `${API_BASE}/${limit.start}/${limit.end}/RCP_NM=${encodeURIComponent(keyword)}`;
-    const { data } = await axios.get(url);
+    const {data} = await axios.get(url);
     const apiRows = data.COOKRCP01?.row || [];
     return apiRows.map(r => toSummary(r, 'api'));
 }
