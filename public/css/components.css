@@ -184,16 +184,7 @@
 }
 
 
-/* — 로그인/회원가입 영역 — */
-.header__auth {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 
-    /* 버튼 사이 간격 */
-    gap: var(--gap);
-    padding: var(--gap) var(--gap);
-}
 
 /* 로그인 버튼 (아웃라인 스타일) */
 .button--login {
@@ -250,9 +241,3 @@
     border-width: 1px;
 }
 
-/* 환영 문구 작게 */
-.header__greeting {
-    font-size: 0.9rem;
-    color: var(--color-text);
-    margin-right: var(--gap);
-}

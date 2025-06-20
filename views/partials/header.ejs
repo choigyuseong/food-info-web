@@ -1,29 +1,51 @@
 <header class="header">
     <div class="header__inner">
-        <h1 class="header__logo"><a href="/">한식 레시피</a></h1>
+        <!-- 로고 -->
+        <h1 class="header__logo">
+            <a href="/">한식 레시피</a>
+        </h1>
 
+        <!-- 검색 폼 -->
         <form class="header__search" action="/search" method="GET">
-            <input type="text" name="q" placeholder="어떤 요리가 궁금하신가요?"/>
-            <button type="submit" class="button button--primary">검색</button>
+            <input
+                    type="text"
+                    name="q"
+                    placeholder="어떤 요리가 궁금하신가요?"
+            />
+            <button type="submit" class="button button--primary">
+                검색
+            </button>
         </form>
 
+        <!-- 메인 네비 -->
         <nav class="header__nav">
-            <a href="/recommend"      class="button button--secondary">오늘의 요리 추천</a>
-            <a href="/recipes/create" class="button button--primary-outlined">나만의 요리 추가</a>
+            <a href="/recommend"      class="button button--secondary">
+                오늘의 요리 추천
+            </a>
+            <a href="/recipes/create" class="button button--primary-outlined">
+                나만의 요리 추가
+            </a>
         </nav>
-    </div>
 
-    <div class="header__auth">
-        <% if (!session.userId) { %>
-            <a href="/login"  class="button button--secondary button--small">로그인</a>
-            <a href="/signup" class="button button--primary   button--small">회원가입</a>
-        <% } else { %>
-            <span class="header__greeting"><%= session.username %>님, 환영합니다.</span>
-            <form action="/logout" method="POST" style="display:inline;">
-                <button type="submit" class="button button--primary-outlined button--small">
-                    로그아웃
-                </button>
-            </form>
-        <% } %>
+        <!-- 로그인/회원가입(또는 환영문구) 영역 -->
+        <div class="header__auth">
+            <% if (!session.userId) { %>
+                <a href="/login"  class="button button--secondary button--small">
+                    로그인
+                </a>
+                <a href="/signup" class="button button--primary   button--small">
+                    회원가입
+                </a>
+            <% } else { %>
+                <span class="header__greeting">
+          <%= session.username %>님, 환영합니다.
+        </span>
+                <form action="/logout" method="POST" style="display:inline;">
+                    <button type="submit" class="button button--primary-outlined button--small">
+                        로그아웃
+                    </button>
+                </form>
+            <% } %>
+        </div>
     </div>
 </header>

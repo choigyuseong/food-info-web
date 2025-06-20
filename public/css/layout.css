@@ -12,6 +12,7 @@
     min-width: 1200px;
     margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: var(--gap);
 }
@@ -51,6 +52,22 @@
 .header__nav {
     display: flex;
     gap: var(--gap-sm);
+}
+
+/* — 로그인/회원가입 영역 — */
+.header__auth {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--gap);
+    margin-top: var(--gap);
+}
+
+/* 환영 문구 작게 */
+.header__greeting {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-right: var(--gap);
 }
 
 /* — 메인 컨테이너 & 그리드 — */
