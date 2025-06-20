@@ -182,3 +182,77 @@
     border-color: #ccc;
     pointer-events: none;
 }
+
+
+/* — 로그인/회원가입 영역 — */
+.header__auth {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    /* 버튼 사이 간격 */
+    gap: var(--gap);
+    padding: var(--gap) var(--gap);
+}
+
+/* 로그인 버튼 (아웃라인 스타일) */
+.button--login {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    padding: 0.5em 1em;
+    border-radius: var(--radius);
+    font-size: var(--font-base);
+    margin-left: var(--gap-sm);
+    transition: background var(--transition), color var(--transition);
+}
+.button--login:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* 회원가입 버튼 (채워진 스타일) */
+.button--signup {
+    background: var(--color-secondary);
+    color: var(--color-text);
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: var(--radius);
+    font-size: var(--font-base);
+    margin-left: var(--gap-sm);
+    font-weight: bold;
+    transition: filter var(--transition);
+}
+.button--signup:hover {
+    filter: brightness(0.9);
+}
+
+/* 로그아웃 버튼 (미니멀 아웃라인) */
+.button--logout {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-text);
+    padding: 0.25em 0.75em;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    margin-left: var(--gap-sm);
+    transition: background var(--transition), color var(--transition);
+}
+.button--logout:hover {
+    background: var(--color-text);
+    color: #fff;
+}
+
+/* 버튼 크기 조정용 유틸 */
+.button--small {
+    font-size: 0.875rem;
+    padding: 0.4em 0.1em;
+    border-width: 1px;
+}
+
+/* 환영 문구 작게 */
+.header__greeting {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-right: var(--gap);
+}
