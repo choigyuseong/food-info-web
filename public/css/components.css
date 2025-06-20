@@ -122,16 +122,17 @@
 
 .detail-page__img-wrapper {
     width: 100%;
-    height: 400px;
+    max-width: 800px;
+    aspect-ratio: 4/3;
+    margin: var(--gap-lg) auto;
     overflow: hidden;
-    border-radius: var(--radius);
-    margin-bottom: var(--gap);
 }
 
 .detail-page__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .detail-page__section {
@@ -183,9 +184,6 @@
     pointer-events: none;
 }
 
-
-
-
 /* 로그인 버튼 (아웃라인 스타일) */
 .button--login {
     background: transparent;
@@ -197,6 +195,7 @@
     margin-left: var(--gap-sm);
     transition: background var(--transition), color var(--transition);
 }
+
 .button--login:hover {
     background: var(--color-primary);
     color: #fff;
@@ -214,6 +213,7 @@
     font-weight: bold;
     transition: filter var(--transition);
 }
+
 .button--signup:hover {
     filter: brightness(0.9);
 }
@@ -229,6 +229,7 @@
     margin-left: var(--gap-sm);
     transition: background var(--transition), color var(--transition);
 }
+
 .button--logout:hover {
     background: var(--color-text);
     color: #fff;

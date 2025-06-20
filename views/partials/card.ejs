@@ -1,4 +1,9 @@
-<div class="card">
+<div
+        class="card"
+        onclick="window.location.href='/recipes/<%= recipe.id %>'"
+        role="button"
+        tabindex="0"
+>
     <div class="card__img-wrapper">
         <img
                 src="<%= recipe.image_url %>"
