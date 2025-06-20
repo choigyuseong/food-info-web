@@ -20,13 +20,15 @@ app.use(session({
     saveUninitialized: false
 }));
 
-const authRoutes = require('./routes/auth');
-const recipeRoutes = require('./routes/recipes');
-const searchRoutes = require('./routes/search');
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
 
-app.use('/', authRoutes);
-app.use('/', recipeRoutes);
-app.use('/search', searchRoutes);
+app.use('/', require('./routes/auth'));
+app.use('/', require('./routes/recipes'));
+app.use('/search', require('./routes/search'));
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>

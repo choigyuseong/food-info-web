@@ -1,4 +1,4 @@
-const { createUser, login } = require('../services/authService');
+const { createUser, login: loginService } = require('../services/authService');
 
 // 회원가입 폼
 exports.showSignupForm = (req, res) => {
@@ -8,7 +8,7 @@ exports.showSignupForm = (req, res) => {
 // 회원가입 처리
 exports.signup = async (req, res, next) => {
     try {
-        await register(req.body);
+        await createUser(req.body);
         res.redirect('/login');
     } catch (err) {
         res.render('signup', { error: err.message });
@@ -23,9 +23,10 @@ exports.showLoginForm = (req, res) => {
 // 로그인 처리
 exports.login = async (req, res, next) => {
     try {
-        const userId = await login(req.body);
-
-        req.session.userId = userId;
+        const user = await loginService(req.body);
+        // 세션에 사용자 정보 저장
+        req.session.userId   = user.id;
+        req.session.username = user.username;
         res.redirect('/');
     } catch (err) {
         res.render('login', { error: err.message });
@@ -33,6 +34,9 @@ exports.login = async (req, res, next) => {
 };
 
 // 로그아웃
-exports.logout = (req, res) => {
-    req.session.destroy(() => res.redirect('/'));
+exports.logout = (req, res, next) => {
+    req.session.destroy(err => {
+        if (err) return next(err);
+        res.redirect('/');
+    });
 };

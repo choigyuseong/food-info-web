@@ -18,7 +18,6 @@ async function createUser({ username, password, passwordConfirm }) {
         err.code = 'INVALID_INPUT';
         throw err;
     }
-
     if (await findUserByUsername(username)) {
         const err = new Error('이미 사용 중인 아이디입니다.');
         err.code = 'DUPLICATE_USER';
@@ -32,6 +31,7 @@ async function createUser({ username, password, passwordConfirm }) {
     );
     return result.insertId;
 }
+
 
 // 로그인 인증
 async function login({ username, password }) {
@@ -55,11 +55,11 @@ async function login({ username, password }) {
         throw err;
     }
 
-    return user.id;
+    return user;
 }
 
 module.exports = {
     createUser,
     login,
-    findUserByUsername,   // 필요하다면 외부에서도 참조 가능
+    findUserByUsername,
 };
